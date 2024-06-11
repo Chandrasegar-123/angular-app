@@ -1,0 +1,12 @@
+<select (change)="onItemsPerPageChange($event)">
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+    <option value="all">All</option>
+  </select>
+  <div>
+    <button *ngFor="let page of pageCount" (click)="onPageChange(page)">
+      {{ page }}
+    </button>
+  </div>
+  
