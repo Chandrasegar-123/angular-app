@@ -2,6 +2,7 @@
 <table>
   <thead>
     <tr>
+      <th>Post ID</th>
       <th>
         ID 
         <button (click)="sort('id', 'asc')">▲</button>
@@ -13,17 +14,19 @@
         <button (click)="sort('email', 'asc')">▲</button>
         <button (click)="sort('email', 'desc')">▼</button>
       </th>
+      <th>Body</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of data">
+      <td>{{ item.postId }}</td>
       <td>{{ item.id }}</td>
       <td>{{ item.name }}</td>
       <td>{{ item.email }}</td>
+      <td>{{ item.body }}</td>
       <td>
         <button (click)="delete(item.id)">Delete</button>
-        <button (click)="edit(item.id, 'newemail@example.com')">Edit</button>
       </td>
     </tr>
   </tbody>

@@ -11,6 +11,7 @@ export class DataTableComponent implements OnInit {
   @Output() onSort = new EventEmitter<{ column: string, direction: string }>();
   @Output() onDelete = new EventEmitter<number>();
   @Output() onEdit = new EventEmitter<{ id: number, newEmail: string }>();
+  @Output() onSearch = new EventEmitter<string>();
   searchTerm: string = '';
 
   constructor() { }
@@ -18,7 +19,7 @@ export class DataTableComponent implements OnInit {
   ngOnInit(): void { }
 
   search(): void {
-    // Emit search term to parent component
+    this.onSearch.emit(this.searchTerm);
   }
 
   sort(column: string, direction: string): void {

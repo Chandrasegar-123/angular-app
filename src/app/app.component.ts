@@ -73,4 +73,13 @@ export class AppComponent implements OnInit {
     this.currentPage = 1;
     this.updatePage();
   }
+
+  handleSearch(searchTerm: string): void {
+    this.currentPage = 1;
+    this.filteredComments = this.comments.filter(comment =>
+      comment.name.includes(searchTerm) || 
+      comment.email.includes(searchTerm) ||
+      comment.body.includes(searchTerm)
+    ).slice(0, this.itemsPerPage);
+  }
 }
