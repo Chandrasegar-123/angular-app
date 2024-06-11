@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-table',
@@ -14,13 +16,22 @@ export class DataTableComponent implements OnInit {
   @Output() onSearch = new EventEmitter<string>();
   searchTerm: string = '';
 
+  private searchSubject: Subject<string> = new Subject<string>();
+
+
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.searchSubject.pipe(
+      debounceTime(1000)
+    ).subscribe(searchTerm => {
+      this.onSearch.emit(searchTerm);
+    });
+   }
 
   search(): void {
-    this.onSearch.emit(this.searchTerm);
-  }
+    this.searchSubject.next(this.searchTerm);
+    }
 
   sort(column: string, direction: string): void {
     this.onSort.emit({ column, direction });
@@ -30,7 +41,4 @@ export class DataTableComponent implements OnInit {
     this.onDelete.emit(id);
   }
 
-  edit(id: number, newEmail: string): void {
-    this.onEdit.emit({ id, newEmail });
-  }
 }
